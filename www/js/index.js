@@ -32,7 +32,7 @@ var app = {
   //
   // The scope of 'this' is the event.
   onDeviceReady: function () {
-    $.getJSON('http://localhost:1234/wp-json/wp/v2/mobilepage?per_page=100', function (posts) {
+    $.getJSON('https://www.tnp.fi/wp-json/wp/v2/mobilepage?per_page=100', function (posts) {
       app.initApp(posts);
     }).fail(function (err) {
       $('.load-error')
