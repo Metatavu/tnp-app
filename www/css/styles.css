@@ -21,6 +21,9 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
+.swiper-slide {
+  padding-bottom:40px;
+}
 .load-container {
   position: absolute;
   width: 100%;
@@ -120,4 +123,5 @@ h3 {
   width: 100%;
   bottom: 0;
   position: fixed;
+  z-index:9999;
 }
