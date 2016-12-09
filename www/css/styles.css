@@ -21,6 +21,9 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
+.swiper-slide {
+  padding-bottom:40px;
+}
 .load-container {
   position: absolute;
   width: 100%;
@@ -38,14 +41,14 @@ body {
   padding: 35px;
 }
 .main-content a {
-  color: #EC2D76;
+  color: #333;
   font-weight: bold;
 }
 .main-content a:focus {
   outline: none;
 }
 .main-content a:focus, .main-content a:hover {
-  color: #E72760;
+  color: #000;
   text-decoration: underline;
 }
 .events-container {
@@ -120,4 +123,5 @@ h3 {
   width: 100%;
   bottom: 0;
   position: fixed;
+  z-index:9999;
 }
