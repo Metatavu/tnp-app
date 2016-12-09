@@ -63,6 +63,11 @@ var app = {
           break;
         case 'event':
           var open = post['metatavu-app-management-open'];
+          if (!open) {
+            console.log(post);
+            continue;
+          }
+          
           var openMoment = open.map(function (eventOpen) {
             return {
               date: eventOpen.date,
