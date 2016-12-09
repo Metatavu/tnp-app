@@ -38,14 +38,14 @@ body {
   padding: 35px;
 }
 .main-content a {
-  color: #EC2D76;
+  color: #333;
   font-weight: bold;
 }
 .main-content a:focus {
   outline: none;
 }
 .main-content a:focus, .main-content a:hover {
-  color: #E72760;
+  color: #000;
   text-decoration: underline;
 }
 .events-container {
