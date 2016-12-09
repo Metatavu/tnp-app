@@ -33,7 +33,7 @@ var app = {
   // The scope of 'this' is the event.
   onDeviceReady: function () {
     $.getJSON('http://localhost:1234/wp-json/wp/v2/mobilepage?per_page=100', function (posts) {
-      //app.initApp(posts);
+      app.initApp(posts);
     }).fail(function (err) {
       $('.load-error')
         .empty()
@@ -209,13 +209,17 @@ var app = {
         maxZoom: 16
       });
       map.addLayer(layer);
+      markerClusters = {};
       for (var slug in eventpages) {
         if (eventpages.hasOwnProperty(slug)) {
           var event = eventpages[slug];
+          if(typeof (markerClusters[event.locationText]) == 'undefined') {
+            markerClusters[event.locationText] = L.markerClusterGroup();
+          }
           var marker = L.marker({
             lat: event.latitude,
             lng: event.longitude
-          }).addTo(map);
+          });
           marker.on('click', function (event) {
             return function () {
               bootbox.dialog({
@@ -224,6 +228,14 @@ var app = {
               });
             };
           } (event));
+
+          markerClusters[event.locationText].addLayer(marker);
+        }
+      }
+      for (var clusterName in markerClusters) {
+        if (markerClusters.hasOwnProperty(clusterName)) {
+          var cluster = markerClusters[clusterName];
+          map.addLayer(cluster);
         }
       }
       map.setView({
