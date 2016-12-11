@@ -8,7 +8,15 @@
     <author email="info@metatavu.fi" href="https://metatavu.fi">
 		Metatavu Oy
 	</author>
-    <icon src="res/icon.png" />
+    <icon src="res/android/icon.png" />
+    <platform name="android">
+      <icon src="res/tnp36x36.png" width="36" height="36" />
+      <icon src="res/tnp48x48.png" width="48" height="48" />
+      <icon src="res/tnp72x72.png" width="72" height="72" />
+      <icon src="res/tnp96x96.png" width="96" height="96" />
+      <icon src="res/tnp144x144.png" width="144" height="144" />
+      <icon src="res/tnp192x192.png" width="192" height="192" />
+    </platform>
     <platform name="ios">
         <icon src="res/tnp180x180.png" width="180" height="180" />
         <icon src="res/tnp60x60.png" width="60" height="60" />
