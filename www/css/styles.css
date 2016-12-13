@@ -20,11 +20,7 @@ body {
   background-position: center bottom;
   background-size: cover;
   background-attachment: fixed;
-  padding-top:160px;
 }
-/*.swiper-slide {
-  padding-bottom: 100px;
-}*/
 .load-container {
   position: absolute;
   width: 100%;
@@ -55,6 +51,9 @@ body {
   color: #000;
   text-decoration: underline;
 }
+.default-container {
+  margin-top:160px;
+}
 .events-container {
   display: none;
   width: 100%;
@@ -64,11 +63,16 @@ body {
   width: 100%;
   height: 100%;
 }
+.swiper-container-vertical {
+  padding-top: 160px;
+}
 .swiper-slide {
-  padding-bottom: 50px;
+  padding-bottom: 15px;
 }
 .map-container {
   display: none;
+  position: absolute;
+  top:0px;
   width: 100%;
   height: 100%;
 }
@@ -88,12 +92,8 @@ body {
   padding-bottom: 50px;
   color:#000;
 }
-.main-content img {
-  width: 100%;
-  height: auto;
-}
 .navbar-default {
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.9);
     border: none;
 }
 .navbar-default .navbar-toggle {
@@ -101,7 +101,7 @@ body {
     margin-right: 0px;
 }
 .navbar-default .navbar-toggle:focus {
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.9);
 }
 .navbar-toggle .icon-bar {
     width: 30px;
@@ -111,7 +111,7 @@ body {
   margin-bottom: 0px;
 }
 .navbar .row {
-  background-color: #fff;
+  background-color: transparent;
 }
 .navbar-date {
   margin-top: 0px;

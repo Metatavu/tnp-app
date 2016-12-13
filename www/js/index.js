@@ -71,8 +71,8 @@ var app = {
           var openMoment = open.map(function (eventOpen) {
             return {
               date: eventOpen.date,
-              opens: moment(eventOpen.date + ' ' + eventOpen.opens, 'D.M. H:mm'),
-              closes: moment(eventOpen.date + ' ' + eventOpen.closes, 'D.M. H:mm')
+              opens: moment(eventOpen.date + ' ' + eventOpen.opens, ['D.M.YYYY H:mm', 'D.M. H:mm']),
+              closes: moment(eventOpen.date + ' ' + eventOpen.closes, ['D.M.YYYY H:mm', 'D.M. H:mm'])
             };
           });
           //TODO: convert to  template
