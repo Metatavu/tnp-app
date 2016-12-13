@@ -321,15 +321,16 @@ var app = {
           }
         }
       }
+      var newEvents = [];
       for (var i = 0; i < events.length; i++) {
         for (var j = 0; j < events[i].open.length; j++) {
           if (events[i].open[j].date == date) {
             events[i].currentOpen = events[i].open[j];
-            break;
+            newEvents.push($.extend({}, events[i]));
           }
         }
       }
-      events = events.sort(function (a, b) {
+      events = newEvents.sort(function (a, b) {
         if (a.currentOpen.opens.isBefore(b.currentOpen.opens)) {
           return -1;
         } else if (b.currentOpen.opens.isBefore(a.currentOpen.opens)) {
