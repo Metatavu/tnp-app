@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fi.metatavu.TnpApp" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fi.metatavu.TnpApp" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Työväen näyttämöpäivät</name>
     <description>
 		Application that will be used during Työväen näyttämöpäivät to inform visitors
@@ -20,14 +20,6 @@
       <icon src="res/tnp310x150Logo.png" target="Wide310x150Logo" />
       <splash src="res/screen/s_tnp620x300.png" width="620" height="300"/>
       <splash src="res/screen/s_tnp1152x1920.png" width="1152" height="1920"/>
-    </platform>
-    <platform name="android">
-      <icon src="res/tnp36x36.png" width="36" height="36" />
-      <icon src="res/tnp48x48.png" width="48" height="48" />
-      <icon src="res/tnp72x72.png" width="72" height="72" />
-      <icon src="res/tnp96x96.png" width="96" height="96" />
-      <icon src="res/tnp144x144.png" width="144" height="144" />
-      <icon src="res/tnp192x192.png" width="192" height="192" />
     </platform>
     <platform name="ios">
         <icon src="res/tnp180x180.png" width="180" height="180" />
