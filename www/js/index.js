@@ -289,7 +289,7 @@ var app = {
       }
       var moments = [];
       for (var j = 0; j < dates.length; j++) {
-        moments.push(moment(dates[j], 'D.M.'));
+        moments.push(moment(dates[j], 'D.M.YYYY'));
       }
       moments = moments.sort(function (a, b) {
         if (a.isBefore(b)) {
@@ -303,7 +303,7 @@ var app = {
       //TODO: use template
       var content = '<table class="table">';
       for (var n = 0; n < moments.length; n++) {
-        content += '<tr><td><a data-date="' + moments[n].format('D.M.') + '" class="date-timetable" href="#">' + moments[n].format('dddd D.M') + '</a></td></tr>';
+        content += '<tr><td><a data-date="' + moments[n].format('D.M.YYYY') + '" class="date-timetable" href="#">' + moments[n].format('dddd D.M') + '</a></td></tr>';
       }
       content += '</table>';
       $('.default-container .main-content').html(content);
