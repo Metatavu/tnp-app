@@ -345,7 +345,7 @@ var app = {
       }
       content += '</table>';
       $('.default-container .main-content').html(content);
-      $('.default-container .content-title').text(moment(date, 'D.M.').format('dddd D.M.'));
+      $('.default-container .content-title').text(moment(date, 'D.M.YYYY').format('dddd D.M.'));
       $('.events-container').hide();
       $('.map-container').hide();
       $('.default-container').show();
