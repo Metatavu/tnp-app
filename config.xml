@@ -8,7 +8,6 @@
     <author email="info@metatavu.fi" href="https://metatavu.fi">
 		Metatavu Oy
 	</author>
-    <icon src="res/icon.png" />
     <platform name="windows">
       <icon src="res/icon.png" target="StoreLogo" />
       <icon src="res/tnp30x30.png" target="Square30x30Logo" />
