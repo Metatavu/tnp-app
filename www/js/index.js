@@ -5,6 +5,22 @@ var infopage = {};
 var eventsInitialized = false;
 var mapInitialized = false;
 var map = null;
+var mapMarkers = [];
+var markerGroups = [];
+var layer = null;
+
+var HighlightIcon = L.Icon.Default.extend({
+  options: {
+    iconUrl: 'img/red-icon.png'
+  }
+});
+var DefaultIcon = L.Icon.Default.extend({
+  options: {
+    iconUrl: 'img/default-icon.png'
+  }
+});
+var defaultIcon = new DefaultIcon();
+var highlightIcon = new HighlightIcon();
 
 function shuffle(a) {
   var j, x, i;
@@ -13,6 +29,41 @@ function shuffle(a) {
     x = a[i - 1];
     a[i - 1] = a[j];
     a[j] = x;
+  }
+}
+
+function getGroupByMarker(marker) {
+  for (var i = 0; i < markerGroups.length; i++) {
+    if (markerGroups[i].hasLayer(marker)) {
+      return markerGroups[i];
+    }
+  }
+  return null;  
+}
+
+function getMarkerBySlug(slug) {
+  for (var i = 0; i < mapMarkers.length; i++) {
+    if (mapMarkers[i].eventSlug == slug) {
+      return mapMarkers[i];
+    }
+  }
+  return null;
+}
+
+function resetMarkers() {
+  for (var i = 0; i < mapMarkers.length; i++) {
+    mapMarkers[i].setIcon(defaultIcon);
+    mapMarkers[i].__parent.unspiderfy();
+  }
+}
+
+function showMarker(marker) {
+  marker.setIcon(highlightIcon);
+  var group = getGroupByMarker(marker);
+  if(group) {
+    group.zoomToShowLayer(marker, function(){
+      marker.__parent.spiderfy();  
+    });
   }
 }
 
@@ -64,7 +115,6 @@ var app = {
         case 'event':
           var open = post['metatavu-app-management-open'];
           if (!open) {
-            console.log(post);
             continue;
           }
 
@@ -76,7 +126,7 @@ var app = {
             };
           });
           //TODO: convert to  template
-          var extraContent = '<p><b>Missä:</b><br/>' + post['metatavu-app-management-location']['text'] + '</p><p><b>Milloin:</b><br/>';
+          var extraContent = '<p><b>Missä:</b><br/>' + post['metatavu-app-management-location']['text'] + '<a href="#" data-slug="' + post.slug + '" class="show-event-location"> --> näytä kartalla</a></p><p><b>Milloin:</b><br/>';
           for (var j = 0; j < openMoment.length; j++) {
             extraContent += '<span>' + openMoment[j].opens.format('dd D.M. H:mm') + ' - ' + openMoment[j].closes.format('H:mm') + '</span><br/>';
           }
@@ -155,6 +205,14 @@ var app = {
       var date = $(this).attr('data-date');
       app.renderTimeTable(date);
     });
+    $(document).on('click', '.show-event-location', function () {
+      var slug = $(this).attr('data-slug');
+      $('.active').removeClass('active');
+      $('.menu-item[data-target="map"]').parent().addClass('active');
+      var event = eventpages[slug];
+      bootbox.hideAll();
+      app.renderMapPage(slug);
+    });
     $(document).on('click', '.show-event-data', function () {
       var slug = $(this).attr('data-slug');
       var event = eventpages[slug];
@@ -211,28 +269,31 @@ var app = {
   renderInfoPage: function () {
     app.renderPage(infopage);
   },
-  renderMapPage: function () {
+  renderMapPage: function (highlightSlug) {
     $('.default-container').hide();
     $('.events-container').hide();
     $('.map-container').show();
     if (!mapInitialized) {
       mapInitialized = true;
-      var layer = new L.StamenTileLayer('toner');
+      layer = new L.StamenTileLayer('toner');
       map = new L.Map('map', {
         maxZoom: 16
       });
       map.addLayer(layer);
-      markerClusters = {};
+      var markerClusters = {};
       for (var slug in eventpages) {
         if (eventpages.hasOwnProperty(slug)) {
           var event = eventpages[slug];
           if (typeof (markerClusters[event.locationText]) == 'undefined') {
-            markerClusters[event.locationText] = L.markerClusterGroup();
+            markerClusters[event.locationText] = L.markerClusterGroup({});
           }
           var marker = L.marker({
             lat: event.latitude,
             lng: event.longitude
-          });
+          }, {
+              icon: defaultIcon
+            });
+          marker.eventSlug = slug;
           marker.on('click', function (event) {
             return function () {
               bootbox.dialog({
@@ -243,27 +304,52 @@ var app = {
           } (event));
 
           markerClusters[event.locationText].addLayer(marker);
+          mapMarkers.push(marker);
         }
       }
       for (var clusterName in markerClusters) {
         if (markerClusters.hasOwnProperty(clusterName)) {
           var cluster = markerClusters[clusterName];
           map.addLayer(cluster);
+          markerGroups.push(cluster);
         }
       }
       map.setView({
         lat: 61.688727,
         lng: 27.272146
       }, 14);
+      if (typeof (highlightSlug) !== 'undefined') {
+        map.setView({
+          lat: 61.688727,
+          lng: 27.272146
+        }, 14);
+        layer.once('load', function () {
+          var highlightMarker = getMarkerBySlug(highlightSlug);
+          if (highlightMarker) {
+            showMarker(highlightMarker);
+          }
+        });
+      }
+    } else {
+      if (typeof (highlightSlug) == 'undefined') {
+        resetMarkers();
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          map.setView({
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+          }, 14);
+        }, function (err) {
+          //If position is not available for some reason, use mikkeli centre which is already initialized
+        });
+
+      } else {
+        resetMarkers();
+        var highlightMarker = getMarkerBySlug(highlightSlug);
+        if (highlightMarker) {
+          showMarker(highlightMarker);
+        }
+      }
     }
-    navigator.geolocation.getCurrentPosition(function (pos) {
-      map.setView({
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude
-      }, 14);
-    }, function (err) {
-      //If position is not available for some reason, use mikkeli centre which is already initialized
-    });
   },
   renderEventsPage: function () {
     $('.default-container').hide();
