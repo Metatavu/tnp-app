@@ -67,7 +67,7 @@ var app = {
             console.log(post);
             continue;
           }
-          
+
           var openMoment = open.map(function (eventOpen) {
             return {
               date: eventOpen.date,
@@ -187,10 +187,10 @@ var app = {
       }
     }
     shuffle(currentEvents);
-    var frontPageEvents = currentEvents.slice(0,3);
+    var frontPageEvents = currentEvents.slice(0, 3);
     var content = frontpage.content;
     content += '<br/><p><b>Juuri nyt:</b></p><table class="table">';
-    for(var n = 0; n < frontPageEvents.length;n++){
+    for (var n = 0; n < frontPageEvents.length; n++) {
       content += '<tr><td><a class="show-event-data" data-slug="' + frontPageEvents[n].slug + '" href="#">' + frontPageEvents[n].title + '</a></td></tr>';
     }
     content += '</table>';
@@ -218,7 +218,7 @@ var app = {
       for (var slug in eventpages) {
         if (eventpages.hasOwnProperty(slug)) {
           var event = eventpages[slug];
-          if(typeof (markerClusters[event.locationText]) == 'undefined') {
+          if (typeof (markerClusters[event.locationText]) == 'undefined') {
             markerClusters[event.locationText] = L.markerClusterGroup();
           }
           var marker = L.marker({
@@ -344,6 +344,49 @@ var app = {
         content += '<tr><td><a class="show-event-data" data-slug="' + events[j].slug + '" href="#">' + events[j].currentOpen.opens.format('H:mm') + ' - ' + events[j].currentOpen.closes.format('H:mm') + ' ' + events[j].title + '</a></td></tr>';
       }
       content += '</table>';
+      var dates = [];
+      for (var slug in eventpages) {
+        if (eventpages.hasOwnProperty(slug)) {
+          var event = eventpages[slug];
+          for (var i = 0; i < event.dates.length; i++) {
+            if (dates.indexOf(event.dates[i]) == -1) {
+              dates.push(event.dates[i]);
+            }
+          }
+        }
+      }
+      dates = dates.sort(function (a_date, b_date) {
+        var a = moment(a_date, 'D.M.YYYY');
+        var b = moment(b_date, 'D.M.YYYY');
+        if (a.isBefore(b)) {
+          return -1;
+        } else if (b.isBefore(a)) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      var dateIndex = dates.indexOf(date);
+      var previousDate = null;
+      var nextDate = null;
+      if(dateIndex > 0) {
+        previousDate = dates[dateIndex - 1];
+      }
+      if(dateIndex < dates.length) {
+        nextDate = dates[dateIndex + 1];
+      }
+      content += '<div class="row">';
+      content += '<div class="col-xs-6">';
+      if(previousDate) {
+        content += '<a data-date="' + previousDate + '" class="date-timetable" href="#"><< ' + moment(previousDate, 'D.M.YYYY').format('dddd D.M.') + '</a>';
+      }
+      content += '</div>';
+      content += '<div class="col-xs-6">';
+      if(nextDate) {
+        content += '<a data-date="' + nextDate + '" class="date-timetable" href="#">' + moment(nextDate, 'D.M.YYYY').format('dddd D.M.') + ' >></a>';
+      }
+      content += '</div>';
+      content += '</div>';
       $('.default-container .main-content').html(content);
       $('.default-container .content-title').text(moment(date, 'D.M.YYYY').format('dddd D.M.'));
       $('.events-container').hide();
