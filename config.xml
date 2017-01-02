@@ -21,6 +21,4 @@
     <preference name="target-device" value="handset" />
     <preference name="SplashScreenDelay" value="0" />
     <engine name="browser" spec="~4.1.0" />
-    
-    
 </widget>
