@@ -1,50 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="fi.metatavu.TnpApp" version="0.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Työväen näyttämöpäivät</name>
+    <name>Työväen Näyttämöpäivät</name>
     <description>
-		Application that will be used during Työväen näyttämöpäivät to inform visitors
+		Application that will be used during Työväen Näyttämöpäivät to inform visitors
 		about different happenings around the city.
 	</description>
     <author email="info@metatavu.fi" href="https://metatavu.fi">
 		Metatavu Oy
 	</author>
-    <platform name="windows">
-      <icon src="res/icon.png" target="StoreLogo" />
-      <icon src="res/tnp30x30.png" target="Square30x30Logo" />
-      <icon src="res/tnp44x44Logo.png" target="Square44x44Logo" />
-      <icon src="res/tnp70x70Logo.png" target="Square70x70Logo" />
-      <icon src="res/tnp71x71Logo.png" target="Square71x71Logo" />
-      <icon src="res/tnp150x150Logo.png" target="Square150x150Logo" />
-      <icon src="res/tnp310x310Logo.png" target="Square310x310Logo" />
-      <icon src="res/tnp310x150Logo.png" target="Wide310x150Logo" />
-      <splash src="res/screen/s_tnp620x300.png" width="620" height="300"/>
-      <splash src="res/screen/s_tnp1152x1920.png" width="1152" height="1920"/>
-    </platform>
-    <platform name="ios">
-        <icon src="res/tnp180x180.png" width="180" height="180" />
-        <icon src="res/tnp60x60.png" width="60" height="60" />
-        <icon src="res/tnp120x120.png" width="120" height="120" />
-        <icon src="res/tnp76x76.png" width="76" height="76" />
-        <icon src="res/tnp152x152.png" width="152" height="152" />
-        <icon src="res/tnp40x40.png" width="40" height="40" />
-        <icon src="res/tnp80x80.png" width="80" height="80" />
-        <icon src="res/tnp57x57.png" width="57" height="57" />
-        <icon src="res/tnp114x114.png" width="114" height="114" />
-        <icon src="res/tnp72x72.png" width="72" height="72" />
-        <icon src="res/tnp144x144.png" width="144" height="144" />
-        <icon src="res/tnp29x29.png" width="29" height="29" />
-        <icon src="res/tnp58x58.png" width="58" height="58" />
-        <icon src="res/tnp50x50.png" width="50" height="50" />
-        <icon src="res/tnp100x100.png" width="100" height="100" />
-        <icon src="res/tnp167x167.png" width="167" height="167" />
-        <icon src="res/tnp87x87.png" width="87" height="87" />
-       <splash src="res/screen/s_tnp320x480.png" width="320" height="480"/>
-       <splash src="res/screen/s_tnp640x960.png" width="640" height="960"/>
-       <splash src="res/screen/s_tnp640x1136.png" width="640" height="1136"/>
-       <splash src="res/screen/s_tnp750x1334.png" width="750" height="1334"/>
-       <splash src="res/screen/s_tnp1242x2208.png" width="1242" height="2208"/>
-       <splash src="res/screen/s_tnp2208x1242.png" width="2208" height="1242"/>
-    </platform>
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="https://ssl.gstatic.com" />
