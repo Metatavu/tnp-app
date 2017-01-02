@@ -163,6 +163,14 @@ var app = {
         message: event.content
       });
     });
+    $('.default-container').swipe({
+      swipeLeft: function (event, direction, distance, duration, fingerCount, fingerData) {
+        $('.next-page').click();
+      },
+      swipeRight: function (event, direction, distance, duration, fingerCount, fingerData) {
+        $('.prev-page').click();
+      }
+    });
     $('.load-container').hide();
     app.renderFrontPage();
   },
@@ -369,21 +377,21 @@ var app = {
       var dateIndex = dates.indexOf(date);
       var previousDate = null;
       var nextDate = null;
-      if(dateIndex > 0) {
+      if (dateIndex > 0) {
         previousDate = dates[dateIndex - 1];
       }
-      if(dateIndex < dates.length) {
+      if (dateIndex < dates.length) {
         nextDate = dates[dateIndex + 1];
       }
       content += '<div class="row">';
       content += '<div class="col-xs-6">';
-      if(previousDate) {
-        content += '<a data-date="' + previousDate + '" class="date-timetable" href="#"><< ' + moment(previousDate, 'D.M.YYYY').format('dddd D.M.') + '</a>';
+      if (previousDate) {
+        content += '<a data-date="' + previousDate + '" class="date-timetable prev-page" href="#"><< ' + moment(previousDate, 'D.M.YYYY').format('dddd D.M.') + '</a>';
       }
       content += '</div>';
       content += '<div class="col-xs-6">';
-      if(nextDate) {
-        content += '<a data-date="' + nextDate + '" class="date-timetable" href="#">' + moment(nextDate, 'D.M.YYYY').format('dddd D.M.') + ' >></a>';
+      if (nextDate) {
+        content += '<a data-date="' + nextDate + '" class="date-timetable next-page" href="#">' + moment(nextDate, 'D.M.YYYY').format('dddd D.M.') + ' >></a>';
       }
       content += '</div>';
       content += '</div>';
