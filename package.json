@@ -1,0 +1,19 @@
+{
+  "name": "fi.metatavu.tnpapp",
+  "version": "0.1.0",
+  "displayName": "Työväen Näyttämöpäivät",
+  "cordova": {
+    "platforms": [
+      "browser"
+    ],
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-geolocation": {}
+    }
+  },
+  "dependencies": {
+    "cordova-browser": "^5.0.3",
+    "cordova-plugin-geolocation": "~2.2.0",
+    "cordova-plugin-whitelist": "1"
+  }
+}
